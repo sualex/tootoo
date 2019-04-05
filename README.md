@@ -1,6 +1,6 @@
 ## Description
 
-Tech interview sample project implementation. See [task definition](#1)
+Tech interview sample project implementation. See [task definition](https://github.com/sualex/tootoo/issues/1)
 
 ## Installation
 
