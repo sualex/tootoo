@@ -1,8 +1,8 @@
+import * as path from 'path';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule, rpc } from './app.module';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
-}
-bootstrap();
+(async () => {
+  const app = await NestFactory.createMicroservice(AppModule, rpc.grpc);
+  await app.listenAsync();
+})()
