@@ -1,6 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from './app.module';
 import { rpc } from './app.module';
+import * as execa from 'execa';
+import { join } from 'path';
+import { json } from './util/json';
+import { IPicture } from './picture/interfaces/picture.interface';
 
 describe('AppController (e2e)', () => {
 
@@ -15,12 +19,24 @@ describe('AppController (e2e)', () => {
     app = moduleFixture.createNestMicroservice(rpc.grpc);
     await app.listenAsync();
   });
-
+  // drop endpoint
   afterEach(async () => app && await app.close());
 
-  it('4 test', async () => {
-    // await app.close();
-    return expect(2 + 2).toBe(4);
-  });
+  it('grpcurl calls prototyped method and gets correct response',
+    async () => {
+      const protoPath = join(__dirname, './picture/picture.proto');
+      const { stdout } = await execa.shell(
+        `grpcurl -plaintext -format json -proto ${protoPath} -d '{"id": 1}' \
+      127.0.0.1:5000 picture.PictureService/FindOne`,
+      );
+      const response = await json.parse(stdout) as IPicture;
+      return expect(response)
+        .toEqual(
+          {
+            id: 1,
+            url: 'xxx',
+          },
+        );
+    });
 
 });

@@ -21,7 +21,7 @@ export class PictureController implements OnModuleInit {
 
   @GrpcMethod('PictureService')
   findOne(data: PictureById): IPicture {
-    console.log(data);
+    // console.log(data);
     const items: IPicture[] = [
       { id: 1, url: 'xxx' },
     ];
