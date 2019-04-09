@@ -8,15 +8,11 @@ import * as fetch from 'node-fetch';
 
 @Injectable()
 export class PictureService {
+
   constructor(
     @InjectRepository(Picture)
     private readonly pictureRepository: Repository<Picture>,
-  ) {
-  }
-
-  // async findAll(): Promise<Photo[]> {
-  //   return await this.photoRepository.find();
-  // }
+  ) {}
 
   private async fetchItems()/*: Promise<[IPicture]>*/ {
     const raw = await fetch('https://api.flickr.com/services/feeds/photos_public.gne?tags=kitten&format=json&nojsoncallback=1');

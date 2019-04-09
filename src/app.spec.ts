@@ -5,7 +5,7 @@ import * as execa from 'execa';
 import { join } from 'path';
 import { AppModule } from './app.module';
 import { options as grpc } from './rpc.options';
-import { json } from './util/json';
+import { json } from './json';
 import { IPicture } from './picture/interfaces/picture.interface';
 
 import { PictureService } from './picture/picture.service';
