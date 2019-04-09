@@ -21,8 +21,8 @@ message Picture {
   int32 id = 1;
   string author = 2;
   string authorId = 3;
-  google.protobuf.Timestamp dateTaken = 4;
-  google.protobuf.Timestamp published = 5;
+  string dateTaken = 4;
+  string published = 5;
   string link = 6;
   string title = 7;
   string description = 8;

@@ -9,5 +9,4 @@ export interface IPicture {
   description: string;
   tags: string;
   media: string;
-
 }

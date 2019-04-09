@@ -8,7 +8,7 @@
     "gen:certs": "ts-node -r tsconfig-paths/register script/gen.certs.ts",
     "build": "tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\"",
-    "start": "docker-compose up -d && yarn gen:certs && ts-node -r tsconfig-paths/register src/main.ts",
+    "start": "docker-compose up -d && yarn && yarn gen:certs && ts-node -r tsconfig-paths/register src/main.ts",
     "start:dev": "yarn && nodemon",
     "start:debug": "nodemon --config nodemon-debug.json",
     "prestart:prod": "rimraf dist && npm run build",

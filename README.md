@@ -13,28 +13,21 @@ $ yarn
 ## Running the app
 
 ```bash
-# development
 $ yarn start
-
-# watch mode
-$ yarn start:dev
-
-# production mode
-$ yarn start:prod
 ```
+
+Installs packages, runs Postgres in docker container, generates certificates in  ./auth dir, starts the service.
+Then: 
+
+```bash
+$  grpcurl -cacert ./auth/server_cert.pem -cert ./auth/Alice_cert.pem -key ./auth/Alice_key.pem -format json -proto ./src/picture/picture.proto -d '{"id": 1}' localhost:5000 picture.PictureService/Find
+```
+
+-d '{"id": 1}' can be any query object matching PictureQuery interface
 
 ## Test
 
-```bash
-# unit tests
-$ yarn test
-
-# e2e tests
-$ yarn test:e2e
-
-# test coverage
-$ yarn test:cov
-```
+not working for now - some troubles with TypeORM driver init on beforeAll
 
 ## Stay in touch
 
