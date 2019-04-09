@@ -1,4 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { INestMicroservice } from '@nestjs/common';
+
 import * as execa from 'execa';
 import { join } from 'path';
 import { AppModule } from './app.module';
@@ -6,25 +8,43 @@ import { options as grpc } from './rpc.options';
 import { json } from './util/json';
 import { IPicture } from './picture/interfaces/picture.interface';
 
+import { PictureService } from './picture/picture.service';
+import { PictureController } from './picture/picture.controller';
+
 const authDir = join(process.cwd(), './auth');
+
+const getAppModule = async (): Promise<TestingModule> =>
+  // it is a nestjs grpc microservice endpoint, transport - protocol buffers
+  Test.createTestingModule({
+    imports: [
+      AppModule,
+    ],
+  }).compile();
+
+async function prepareDataSet() {
+
+}
 
 describe('AppController (e2e)', () => {
 
-  let app;
+  let appModule: TestingModule;
+  let pictureService: PictureService;
+  let pictureController: PictureController;
+  let application: INestMicroservice;
 
-  // it is a nestjs grpc microservice endpoint, transport - protocol buffers
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [
-        AppModule,
-      ],
-    }).compile();
-    app = moduleFixture.createNestMicroservice(grpc);
-    await app.listenAsync();
+  beforeAll(async () => {
+    appModule = await getAppModule();
+    pictureService = appModule.get<PictureService>(PictureService);
+    pictureController = appModule.get<PictureController>(PictureController);
+
+    // seed db with flickr kitten data
+    await pictureService.seed();
+
+    application = appModule.createNestMicroservice(grpc);
+    await application.listenAsync();
   });
 
-  // drop endpoint
-  afterEach(async () => app && await app.close());
+  afterEach(async () => application && await application.close());
 
   it('grpcurl calls prototyped method securely using client ssl certificate and gets correct response',
     async () => {

@@ -18,7 +18,6 @@ export class PictureController implements OnModuleInit {
 
   async onModuleInit() {
     // this.pictureService = this.client.getService<PictureService>('PictureService');
-    await this.pictureService.seed();
   }
 
   @GrpcMethod('PictureService')
