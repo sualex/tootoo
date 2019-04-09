@@ -5,11 +5,16 @@ import "google/protobuf/timestamp.proto";
 package picture;
 
 service PictureService {
-  rpc Find (PictureById) returns (Picture) {}
+  rpc Find (PictureQuery) returns (stream Picture) {}
 }
 
-message PictureById {
+message PictureQuery {
   int32 id = 1;
+  string author = 2;
+  string authorId = 3;
+  string dateTaken = 4;
+  string published = 5;
+  string title = 6;
 }
 
 message Picture {

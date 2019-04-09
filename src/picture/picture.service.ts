@@ -12,7 +12,8 @@ export class PictureService {
   constructor(
     @InjectRepository(Picture)
     private readonly pictureRepository: Repository<Picture>,
-  ) {}
+  ) {
+  }
 
   private async fetchItems()/*: Promise<[IPicture]>*/ {
     const raw = await fetch('https://api.flickr.com/services/feeds/photos_public.gne?tags=kitten&format=json&nojsoncallback=1');
@@ -23,16 +24,16 @@ export class PictureService {
   async seed(): Promise<Picture> {
     const items = await this.fetchItems();
     const pictures = items.map(({
-      author,
-      author_id,
-      date_taken,
-      published,
-      link,
-      title,
-      description,
-      tags,
-      media,
-    }) => {
+                                  author,
+                                  author_id,
+                                  date_taken,
+                                  published,
+                                  link,
+                                  title,
+                                  description,
+                                  tags,
+                                  media,
+                                }) => {
       const p = new Picture();
       p.author = author;
       p.authorId = author_id;
@@ -48,11 +49,9 @@ export class PictureService {
     return await this.pictureRepository.save(pictures);
   }
 
-  async find(params): Promise<Picture> {
+  async find(query) {
     return await this.pictureRepository
-      .createQueryBuilder('picture')
-      .where('picture.id = :id', params)
-      .getOne();
+      .find({ where: { ...query } });
   }
 
 }

@@ -2,9 +2,12 @@ import { Controller, Get, OnModuleInit } from '@nestjs/common';
 import { Client, ClientGrpc, GrpcMethod } from '@nestjs/microservices';
 import { Observable } from 'rxjs';
 import { options as grpc } from '../rpc.options';
-import { PictureById } from './interfaces/picture-by-id.interface';
+import { PictureQuery } from './interfaces/picture.query.interface';
 import { IPicture } from './interfaces/picture.interface';
 import { PictureService } from './picture.service';
+import { from } from 'rxjs';
+
+import { Subject } from 'rxjs';
 
 // interface PictureService {
 //   findOne(data: { id: number }): Observable<any>;
@@ -19,14 +22,13 @@ export class PictureController implements OnModuleInit {
 
   async onModuleInit() {
     // this.pictureService = this.client.getService<PictureService>('PictureService');
+    // seed db with flickr kitten data
+    await this.pictureService.seed();
   }
 
   @GrpcMethod('PictureService', 'Find')
-  async find(data: PictureById) {
-
-    console.log(data);
-
-    const found = await this.pictureService.find(data);
-    return found;
+  async find(query: PictureQuery): Promise<Observable<any>> {
+    const found = await this.pictureService.find(query);
+    return from(found);
   }
 }
