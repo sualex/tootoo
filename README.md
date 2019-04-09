@@ -27,7 +27,7 @@ $  grpcurl -cacert ./auth/server_cert.pem -cert ./auth/Alice_cert.pem -key ./aut
 
 ## Test
 
-not working for now - some troubles with TypeORM driver init on beforeAll
+Not working for now - some troubles with TypeORM driver init on beforeAll. No time to track )
 
 ## Stay in touch
 
