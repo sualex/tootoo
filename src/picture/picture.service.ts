@@ -23,17 +23,19 @@ export class PictureService {
 
   async seed(): Promise<Picture> {
     const items = await this.fetchItems();
-    const pictures = items.map(({
-                                  author,
-                                  author_id,
-                                  date_taken,
-                                  published,
-                                  link,
-                                  title,
-                                  description,
-                                  tags,
-                                  media,
-                                }) => {
+    const pictures = items.map((
+      {
+        author,
+        author_id,
+        date_taken,
+        published,
+        link,
+        title,
+        description,
+        tags,
+        media,
+      },
+    ) => {
       const p = new Picture();
       p.author = author;
       p.authorId = author_id;
