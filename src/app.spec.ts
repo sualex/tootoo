@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppModule } from './app.module';
-import { rpc } from './app.module';
 import * as execa from 'execa';
 import { join } from 'path';
+import { AppModule } from './app.module';
+import { options as grpc } from './rpc.options';
 import { json } from './util/json';
 import { IPicture } from './picture/interfaces/picture.interface';
 
@@ -19,7 +19,7 @@ describe('AppController (e2e)', () => {
         AppModule,
       ],
     }).compile();
-    app = moduleFixture.createNestMicroservice(rpc.grpc);
+    app = moduleFixture.createNestMicroservice(grpc);
     await app.listenAsync();
   });
 

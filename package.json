@@ -17,7 +17,7 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "yarn test:certs && jest --config ./jest-e2e.json",
+    "test:e2e": "docker-compose up -d --force-recreate && yarn && yarn test:certs && jest --config ./jest-e2e.json",
     "test:certs": "ts-node -r tsconfig-paths/register script/test.certs.ts"
   },
   "dependencies": {
@@ -25,10 +25,14 @@
     "@nestjs/common": "^6.0.0",
     "@nestjs/core": "^6.0.0",
     "@nestjs/microservices": "^6.0.5",
+    "@nestjs/typeorm": "^6.0.0",
     "grpc": "^1.19.0",
+    "node-fetch": "^2.3.0",
+    "pg": "^7.9.0",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
     "rxjs": "^6.3.3",
+    "typeorm": "^0.2.16",
     "yieldable-json": "^1.0.1"
   },
   "devDependencies": {
