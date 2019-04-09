@@ -13,19 +13,20 @@ import { PictureService } from './picture.service';
 @Controller()
 export class PictureController implements OnModuleInit {
 
-  constructor(private readonly pictureService: PictureService) {
-  }
+  constructor(
+    private readonly pictureService: PictureService,
+  ) {}
 
   async onModuleInit() {
     // this.pictureService = this.client.getService<PictureService>('PictureService');
   }
 
-  @GrpcMethod('PictureService')
-  async findOne(data: PictureById) {
+  @GrpcMethod('PictureService', 'Find')
+  async find(data: PictureById) {
+
+    console.log(data);
 
     const found = await this.pictureService.find(data);
-    console.log(found);
     return found;
-
   }
 }

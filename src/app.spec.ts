@@ -51,7 +51,7 @@ describe('AppController (e2e)', () => {
       const protoPath = join(__dirname, './picture/picture.proto');
       const { stdout } = await execa.shell(
         `grpcurl -cacert ${authDir}/server_cert.pem -cert ${authDir}/Alice_cert.pem -key ${authDir}/Alice_key.pem -format json \
-        -proto ${protoPath} -d '{"id": 1}' localhost:5000 picture.PictureService/FindOne`,
+        -proto ${protoPath} -d '{"id": 1}' localhost:5000 picture.PictureService/Find`,
       );
       const response = await json.parse(stdout) as IPicture;
       return expect(response)

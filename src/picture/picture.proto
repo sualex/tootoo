@@ -5,7 +5,7 @@ import "google/protobuf/timestamp.proto";
 package picture;
 
 service PictureService {
-  rpc FindOne (PictureById) returns (Picture) {}
+  rpc Find (PictureById) returns (Picture) {}
 }
 
 message PictureById {
